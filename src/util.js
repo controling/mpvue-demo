@@ -22,3 +22,10 @@ export function showSuccess(text){
         icon: 'success'
     })
 }
+
+export function showFail(text){
+    wx.showToast({
+        title: text,
+        icon: 'none'
+    })
+}

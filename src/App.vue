@@ -1,7 +1,7 @@
 
 <script>
 //引入配置项
-import {get, showSuccess} from "./util";
+import {get, showSuccess, showFail} from "./util";
 import qcloud from "wafer2-client-sdk"
 import config from "./config"
 
@@ -17,7 +17,7 @@ export default {
           wx.setStorageSync('userinfo', userinfo)
         },
         fail: function (err) {
-          showSuccess('登录失败')
+          showFail('登录失败')
           console.log('登录失败', err)
         }
       })
@@ -36,6 +36,20 @@ export default {
 };
 </script>
 <style>
+.btn{
+  color: #ffffff;
+  background: #ea5a49;
+  margin-bottom: 10px;
+  padding: 0 15px;
+  border-radius: 2px;
+  font-size: 16px;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+}
+.btn:active{
+  background: #fa5a49;
+}
 </style>
 
 

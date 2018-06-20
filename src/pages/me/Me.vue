@@ -33,8 +33,8 @@ export default {
         isbn,
         openId: this.userinfo.openId
       })
-      if(res.code === 0 && res.data.title){
-        showSuccess('添加成功', `${res.data.title}添加成功`)
+      if(res.code === 0 && res.title){
+        showSuccess(`添加成功`)
       }
     },
     scanBook() {
@@ -44,6 +44,9 @@ export default {
           if(res.result){
             this.addBook(res.result)
           }
+        },
+        fail: res => {
+          showFail('扫描失败')
         }
       });
     },

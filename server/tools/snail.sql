@@ -11,4 +11,4 @@ create table books(
     rate float,
     tags varchar(100),
     author varchar(1000)
-)
+) charset utf8 collate utf8_general_ci;

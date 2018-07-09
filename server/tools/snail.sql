@@ -1,3 +1,5 @@
+-- 将以下代码复制到 mysql> 下运行 创建books表
+
 create table books(
     id int not null auto_increment primary key,
     isbn varchar(20) not null,
@@ -11,4 +13,4 @@ create table books(
     rate float,
     tags varchar(100),
     author varchar(1000)
-)
+) charset utf8 collate utf8_general_ci;

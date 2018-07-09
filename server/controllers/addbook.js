@@ -1,4 +1,5 @@
 const https = require('https')
+// 获取当前环境下的mysql实例
 const {mysql} = require('../qcloud')
 
 // 新增图书
@@ -9,8 +10,23 @@ const {mysql} = require('../qcloud')
 module.exports = async (ctx) => {
     const {isbn, openId} = ctx.request.body
     if(isbn && openId){
+        // 查询数据库是否已经存在数据
+        const findRes = await mysql('books').select().where('isbn', isbn)
+        if(findRes.length){
+            ctx.state = {
+                code: -1,
+                data: {
+                    msg: '图书已存在'
+                }
+            }
+            return
+        }
+
         let url = 'https://api.douban.com/v2/book/isbn/' + isbn
+
+        // 获取图书信息
         const bookinfo = await getJSON(url)
+
         const rate = bookinfo.rating.average
         const {title, image, alt, publisher, summary, price} = bookinfo 
         const tags = bookinfo.tags.map(v => {

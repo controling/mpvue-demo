@@ -42,6 +42,9 @@ export default {
           if(res.result){
             this.addBook(res.result)
           }
+        },
+        fail: res => {
+          showFail('扫描失败')
         }
       });
     },

@@ -1,17 +1,31 @@
 <template>
-    <div>{{bookid}}</div>
+    <div>
+        <BookInfo :info="info"></BookInfo>
+    </div>
 </template>
 <script>
 import {get} from '@/util'
+import BookInfo from '@/components/BookInfo'
 export default {
+    components: {
+        BookInfo
+    },
     data(){
         return {
-            bookid: ''
+            bookid: '',
+            info: {}
         }
     },
     methods:{
         async getDetail(){
             const info = await get('/weapp/bookdetail', {id: this.bookid})
+
+            // 设置导航栏标题
+            wx.setNavigationBarTitle({
+                title: info.title
+            })
+
+            this.info = info
         }
     },
     mounted(){

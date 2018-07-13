@@ -1,5 +1,6 @@
 <template>
     <div>
+        <TopSwiper :tops='tops'></TopSwiper>
         <!-- :book 传数据给Card组件 -->
         <Card :key="book.id" v-for="book in books" :book="book"></Card>
         <p class="text-footer" v-if="!more">
@@ -26,15 +27,18 @@
 
 import { get } from "@/util"
 import Card from "@/components/Card"
+import TopSwiper from "@/components/TopSwiper"
 export default {
     components:{
-        Card
+        Card,
+        TopSwiper
     },
     data() {
         return {
             books: [],
             page: 0,
-            more: true
+            more: true,
+            tops: []
         };
     },
     methods: {
@@ -60,12 +64,18 @@ export default {
                 this.books = this.books.concat(books.list)
             }
             wx.hideNavigationBarLoading()
+        },
+        async getTops() {
+            // 获取排行榜图书
+            const tops = await get('/weapp/top')
+            this.tops = tops.list
         }
     },
     onPullDownRefresh(){
         //下拉刷新
         console.log('下拉')
         this.getList(true)
+        this.getTops()
     },
     onReachBottom(){
         // 下拉刷新
@@ -79,6 +89,8 @@ export default {
     mounted() {
         // 首次加载
         this.getList(true)
+        // 获取排行榜图书
+        this.getTops()
     }
 };
 </script>

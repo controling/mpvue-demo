@@ -43,5 +43,8 @@ router.get('/booklist', controllers.booklist)
 // 图书详情信息
 router.get('/bookdetail', controllers.bookdetail)
 
+// 获取排行榜图书
+router.get('/top', controllers.top)
+
 
 module.exports = router
